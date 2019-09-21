@@ -1,0 +1,134 @@
+DBMS:::
+
+Create::::
+CREATE DARABASE DBMS;
+
+Drop:::
+DROP DARABASE DBMS;
+
+Create Table::::
+USE dbms;
+CREATE TABLE student(
+     id INT,
+    fastName VARCHAR(100),
+    lastName VARCHAR(100),
+    city VARCHAR(100),
+    division VARCHAR(100),
+    zipcode INT(100),
+    areacode INT(100),
+    
+    PRIMARY KEY(id)
+    
+
+);
+
+Insert data:::
+INSERT INTO student(id,fastName,lastName,city,division,zipcode,areacode)
+VALUES('1','rrk','ttm','raj','binodpur','100','200'),
+       ('2','rrk','ttm','raj','binodpur','100','200'),
+       ('3','rrk','ttm','raj','binodpur','100','200'),
+       ('4','rrk','ttm','raj','binodpur','100','200'),
+       ('5','rrk','ttm','raj','binodpur','100','200'),
+       ('6','rrk','ttm','raj','binodpur','100','200'),
+       ('7','rrk','ttm','raj','binodpur','100','200'),
+       ('9','rrk','ttm','raj','binodpur','100','200');
+
+Update data:::
+UPDATE student
+SET lastName='Rocktim'
+WHERE id=2;
+
+Delete data:::
+DELETE FROM student
+WHERE id='9';
+
+Alter table:::
+ALTER TABLE student ADD dept VARCHAR(123); [Add a new column]
+ALTER TABLE student
+MODIFY COLUMN dept INT(100); [change datatype name]
+ALTER TABLE student
+DROP COLUMN dept;[drop column]
+
+Select::::
+SELECT * FROM `student` LIMIT 6;[ how many row want]
+SELECT fastName,lastName  FROM `student; [2 row shows]
+SELECT * FROM `student`WHERE id=2;
+SELECT * FROM `student`ORDER BY lastName;
+SELECT * FROM `student`ORDER BY lastName DESC/ASC;
+SELECT  DISTINGT lastName * FROM `student;
+
+Between:::
+SELECT * FROM student
+WHERE age
+BETWEEN 23 AND 40;
+
+Like:::
+SELECT * FROM student
+WHERE city LIKE '%j';[Last letter J]
+
+IN::::
+SELECT * FROM student
+WHERE city IN('raj','dhaka');
+
+MIN/MAX:::
+SELECT MIN(column_name)
+FROM table_name
+WHERE condition;
+
+SELECT MIN(Price) AS SmallestPrice
+FROM Products;
+
+count/avg/sum:::
+SELECT COUNT(ProductID)
+FROM Products; Products=Table NAme
+
+SELECT AVG(Price)
+FROM Products;
+
+SELECT SUM(Quantity)
+FROM OrderDetails;
+
+
+--------------------------------------------------------------------
+FOREIGN key::::
+CREATE TABLE orders(
+   id INT,
+    odersName VARCHAR(123),
+    productID INT,
+    customerID INT,
+    orderDATE DATETIME default CURRENT_TIMESTAMP,
+    PRIMARY KEY(id),
+    
+    FOREIGN KEY(productID) REFERENCES product(id),
+     FOREIGN KEY(customerID) REFERENCES customer(id)   
+);
+
+INNER JOINT::::
+SELECT customer.fastName,customer.lastName,customer.age,orders.odersName
+FROM customer
+INNER JOIN orders
+ON customer.id=orders.customerID
+ORDER BY customer.fastName;
+
+Left join::::
+SELECT customer.fastName,customer.lastName,customer.age,orders.odersName,orders.orderDATE
+FROM customer
+LEFT JOIN orders
+ON customer.id=orders.customerID
+ORDER BY customer.fastName;
+
+
+Group BY:::
+SELECT age, COUNT(age) 
+FROM customer
+WHERE age >30
+GROUP BY age;
+
+
+Q:: Find all id in customer tabel where age> 23
+SELECT * FROM customer
+WHERE id IN(SELECT id
+            FROM customer
+            WHERE age >23
+      
+    );
